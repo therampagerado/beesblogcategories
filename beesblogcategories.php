@@ -39,11 +39,14 @@ class BeesBlogCategories extends Module
         $this->author = 'thirty bees';
 
         $this->bootstrap = true;
+        $this->need_instance = false;
 
         parent::__construct();
         $this->displayName = $this->l('Bees Blog Categories');
         $this->description = $this->l('thirty bees blog categories widget');
         $this->dependencies  = ['beesblog'];
+        $this->tb_versions_compliancy = '>= 1.0.0';
+        $this->tb_min_version = '1.0.0';
     }
 
     /**
