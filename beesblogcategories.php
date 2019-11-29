@@ -30,12 +30,13 @@ class BeesBlogCategories extends Module
 {
     /**
      * BeesBlogCategories constructor.
+     * @throws PrestaShopException
      */
     public function __construct()
     {
         $this->name = 'beesblogcategories';
         $this->tab = 'front_office_features';
-        $this->version = '1.0.1';
+        $this->version = '1.0.2';
         $this->author = 'thirty bees';
 
         $this->bootstrap = true;
@@ -50,10 +51,27 @@ class BeesBlogCategories extends Module
     }
 
     /**
+     * Installs module
+     * @return bool
+     * @throws PrestaShopDatabaseException
+     * @throws PrestaShopException
+     * @throws Adapter_Exception
+     */
+    public function install()
+    {
+        return (
+            parent::install() &&
+            $this->registerHook('displayLeftColumn')
+        );
+    }
+
+    /**
      * Display in left column
      *
      * @return string
      *
+     * @throws PrestaShopException
+     * @throws SmartyException
      * @since 1.0.0
      */
     public function hookDisplayLeftColumn()
@@ -82,6 +100,8 @@ class BeesBlogCategories extends Module
      *
      * @return string
      *
+     * @throws PrestaShopException
+     * @throws SmartyException
      * @since 1.0.0
      */
     public function hookDisplayRightColumn()
