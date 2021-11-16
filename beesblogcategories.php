@@ -82,8 +82,13 @@ class BeesBlogCategories extends Module
 
         $categories = BeesBlogCategory::getCategories($this->context->language->id);
         if (is_array($categories)) {
-            foreach ($categories as &$category) {
-                $category->link = BeesBlog::GetBeesBlogLink('beesblog_category', ['cat_rewrite' => $category->link_rewrite]);
+            foreach ($categories as $id => &$category) {
+                /** @var BeesBlogCategory $category */
+                if ($category->active) {
+                    $category->link = BeesBlog::GetBeesBlogLink('beesblog_category', ['cat_rewrite' => $category->link_rewrite]);
+                } else {
+                    unset($categories[$id]);
+                }
             }
         }
 
