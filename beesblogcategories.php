@@ -52,10 +52,10 @@ class BeesBlogCategories extends Module
 
     /**
      * Installs module
+     *
      * @return bool
      * @throws PrestaShopDatabaseException
      * @throws PrestaShopException
-     * @throws Adapter_Exception
      */
     public function install()
     {
@@ -66,6 +66,7 @@ class BeesBlogCategories extends Module
     }
 
     /**
+     * Display in left column
      * Display in left column
      *
      * @return string
@@ -83,10 +84,7 @@ class BeesBlogCategories extends Module
         $categories = BeesBlogCategory::getCategories($this->context->language->id);
         if (is_array($categories)) {
             foreach ($categories as $id => &$category) {
-                /** @var BeesBlogCategory $category */
-                if ($category->active) {
-                    $category->link = BeesBlog::GetBeesBlogLink('beesblog_category', ['cat_rewrite' => $category->link_rewrite]);
-                } else {
+                if (! $category->active) {
                     unset($categories[$id]);
                 }
             }
